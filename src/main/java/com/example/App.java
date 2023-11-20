@@ -9,26 +9,30 @@ public class App
 {
     public static void main( String[] args ) {
         try{
-            Socket mioSocket = new Socket("localhost", 6789);
+            String nomeServer = null;
+            Socket mioSocket = new Socket(nomeServer, 6789);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
             BufferedReader inDalServer = new BufferedReader(new InputStreamReader(mioSocket.getInputStream()));
             DataOutputStream outVersoServer = new DataOutputStream(mioSocket.getOutputStream());
 
-            String stringaServer;
+            String lista[];
             String st;
-            
+
+            System.out.println("Digita username");
+            st = in.readLine();
+            nomeServer = st;
+            outVersoServer.writeBytes(st);
             do{
+
                 System.out.println("Digita un messaggio oppure EXIT per uscire");
                 st = in.readLine();    
-                outVersoServer.writeBytes(st + '\n');
-                stringaServer = inDalServer.readLine();
-                System.out.println( stringaServer );
-                if(st.equals("EXIT")){
-                    mioSocket.close();
-                }
-            } while (true);
+                outVersoServer.writeBytes(nomeServer + " : " + st + '\n');
+
+            } while (!st.equals("EXIT"));
+            
+            mioSocket.close();
         }
         
         catch (Exception e) {
