@@ -9,6 +9,7 @@ public class App
 {
     public static void main( String[] args ) {
         try{
+            //inizializzazione delle variabili
             String nomeServer = null;
             Socket mioSocket = new Socket(nomeServer, 6789);
 
@@ -20,10 +21,14 @@ public class App
             String lista[];
             String st;
 
+            //Scelta dello username
             System.out.println("Digita username");
             st = in.readLine();
-            nomeServer = st;
             outVersoServer.writeBytes(st);
+            nomeServer = st;
+            
+            System.out.println(nomeServer);
+
             do{
 
                 System.out.println("Digita un messaggio oppure EXIT per uscire");
